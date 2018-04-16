@@ -1,0 +1,28 @@
+https://www.youtube.com/watch?v=3Y1kjj0k4cs
+user = db2isnt1
+pass = db2isnt1
+
+sudo groupadd db2grp
+sudo useradd db2inst1 -d /home/db2inst1 -g db2grp
+cd /opt/ibm/db2/V10.1/instance/
+sudo ./db2icrt -p 60001 -u db2inst1 db2inst1
+cd /home/
+ls -ltr
+sudo mkdir db2inst1
+drwxr-xr-x  2 root   root   4096 Apr 12 12:14 db2inst1
+sudo chown db2inst1.db2grp db2inst1
+cd /opt/ibm/db2/V10.1/instance/
+sudo ./db2icrt -p 60001 -u db2inst1 db2inst1
+	The execution completed successfully.
+
+	For more information see the DB2 installation log at "/tmp/db2icrt.log.2309".
+	Required: Review the following log file also for warnings or errors:
+	"/tmp/db2icrt_local.log.*"
+	DBI1070I  Program db2icrt completed successfully.
+
+cat /tmp/db2icr*
+su - db2inst1
+ls -latr
+db2start
+ps - ef | grep db2
+db2 get dbm cfg | more 

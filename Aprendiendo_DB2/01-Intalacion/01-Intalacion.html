@@ -1,0 +1,79 @@
+DB2
+root = CentinelA$$2018
+user01 = Centos$$2018
+
+https://www.youtube.com/watch?v=tugUu__wm6o
+https://www.youtube.com/watch?v=u6XEMaYKCJI
+https://www.youtube.com/channel/UCmpsCWbkhJb5Ax-PkKPFZLQ/videos
+
+Entorno grafico Xfce 4.12
+sudo add-apt-repository ppa:xubuntu-dev/xfce-4.12
+sudo apt-get update
+sudo apt-get install xubuntu-desktop
+
+Desactivar el entorno Grafico:
+exec sudo -i
+systemctl disable lightdm.service
+(con esto lo ejecutamos unicanete cuando sea necesario con "startx")
+
+Montar usb:
+ls -la /dev/sd*
+Para dispositivos FAT
+sudo mount -t vfat /dev/sdxX /media/usb
+Para montar dispositivos NTFS
+sudo mount -t ntfs-3g /dev/sdb1 /media/usb
+Para desmontar
+sudo umount /media/
+
+tar --extract --file archivo.tar.gz
+tar -xvf archivo.tar.gz
+tar cvf archivo.tar mi_carpeta
+tar --create --verbose --file archivo.tar mi_carpeta
+
+
+instalacion:
+sudo dpkg --configure -a
+sudo apt-get update 
+sudo apt-get upgrade
+tar -xvf v10.1fp3_linuxx64_server.tar.gz
+./db2prereqcheck -v 10.1.0.3
+sudo apt-get install libaio1
+./db2_install
+{
+Install into default directory (/opt/ibm/db2/V10.1) ? [yes/no]
+yes
+Specify one of the following keywords to install DB2 products.
+-> ESE
+Do you want to install the DB2 pureScale Feature? [yes/no]
+no
+The execution completed successfully.
+}
+cat /tmp/db2_install*
+./db2ls -a
+
+
+Accediendo desde terminal:
+
+usuario db2:
+db2inst1 : bd2LinX
+db2 = para iniciar
+create database nombreBaseDatos (prueba1)
+list db directory = lista las bases de datos en el sistema
+connect to nombreBaseDatos = para conectarse a una bd
+create table nombretabla = crea una tabla 
+create table nombretabla ( id int not null, nombre varchar(100) not null, direccion, varchar(150) not null,
+telefono varchar(10))
+select * from nombretabla = muestra toda la informacion de la tabla
+insert into nombretabla = inserta registros en una tabla
+insert into usuarios (id nombre, telefono) values 9 1, 'Angelica Bravo Perez', 'Calle 1 #8 Col. Centro. CP,98820',
+'2563736272')
+update nombretabla = actualiza informacion
+update usuarios set nombre = 'Angelina Bravo Perez' where id  = 1
+delete = para borrar
+delete from usuarios where id = 4
+truncate table usuarios = borra todos los datos de una tabla sin borrar la tabla
+truncate table usuarios inmediate (para borrar inmediatamente)
+drop table nombretabla = borra una tabla
+drop database nombreBaseDatos = borra una base de datos (para borrar una base de datos primero hay que 
+desconectarse de ella)
+disconnect nombreDatabase = desconecta de la base de datos
