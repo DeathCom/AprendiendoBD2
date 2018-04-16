@@ -1,0 +1,250 @@
+Referencia: https://www.youtube.com/watch?v=_wVPUEwLbmQ
+
+db2inst1@ubuntudb2:~$ ps -ef | grep -i db2
+	muestra los procesos ejecutandose en relacion a db2
+			db2inst1@ubuntudb2:~$ ps -ef | grep -i db2
+			root      3004   975  0 09:08 ?        00:00:00 sshd: db2inst1 [priv]
+			db2inst1  3006     1  0 09:09 ?        00:00:00 /lib/systemd/systemd --user
+			db2inst1  3009  3006  0 09:09 ?        00:00:00 (sd-pam)
+			db2inst1  3040  3004  0 09:09 ?        00:00:00 sshd: db2inst1@pts/0
+			db2inst1  3041  3040  0 09:09 pts/0    00:00:00 -bash
+			db2inst1  3977  3041  0 10:44 pts/0    00:00:00 ps -ef
+			db2inst1  3978  3041  0 10:44 pts/0    00:00:00 grep --color=auto -i db2
+			db2inst1@ubuntudb2:~$ su
+			Password:
+			root@ubuntudb2:/home/db2inst1# ps -ef | grep -i db2
+			root      3004   975  0 09:08 ?        00:00:00 sshd: db2inst1 [priv]
+			db2inst1  3006     1  0 09:09 ?        00:00:00 /lib/systemd/systemd --user
+			db2inst1  3009  3006  0 09:09 ?        00:00:00 (sd-pam)
+			db2inst1  3040  3004  0 09:09 ?        00:00:00 sshd: db2inst1@pts/0
+			db2inst1  3041  3040  0 09:09 pts/0    00:00:00 -bash
+			root      3991  3980  0 10:44 pts/0    00:00:00 grep --color=auto -i db2
+
+db2inst1@ubuntudb2:~$ db2start
+	inicializa la base de datos de db2
+		db2inst1@ubuntudb2:~$ db2start
+		04/16/2018 10:48:03     0   0   SQL1063N  DB2START processing was successful.
+		SQL1063N  DB2START processing was successful.
+		db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ ps -ef |grep -i db2
+			db2inst1@ubuntudb2:~$ ps -ef |grep -i db2
+			root      3004   975  0 09:08 ?        00:00:00 sshd: db2inst1 [priv]
+			db2inst1  3006     1  0 09:09 ?        00:00:00 /lib/systemd/systemd --user
+			db2inst1  3009  3006  0 09:09 ?        00:00:00 (sd-pam)
+			db2inst1  3040  3004  0 09:09 ?        00:00:00 sshd: db2inst1@pts/0
+			db2inst1  3041  3040  0 09:09 pts/0    00:00:00 -bash
+			root      3997     1  0 10:47 pts/0    00:00:00 db2wdog 0 [db2inst1]
+			db2inst1  3999  3997  1 10:48 pts/0    00:00:00 db2sysc 0
+			root      4000  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			root      4001  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			root      4002  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			db2inst1  4009  3997  0 10:48 pts/0    00:00:00 db2vend (PD Vendor Process - 1) 0
+			db2inst1  4013  3997  0 10:48 pts/0    00:00:00 db2acd 0 ,0,0,0,1,0,0,0,0000,1,0,98bebc,14,1e014,2,0,1,11fc0,0x210000000,0x210000000,1600000,28005,2,7000d
+			db2inst1  4017  3041  0 10:49 pts/0    00:00:00 ps -ef
+			db2inst1  4018  3041  0 10:49 pts/0    00:00:00 grep --color=auto -i db2
+			db2inst1@ubuntudb2:~$
+
+			//proceso principal del usuario
+			root      3997     1  0 10:47 pts/0    00:00:00 db2wdog 0 [db2inst1]
+
+			//proceso para backups
+			db2inst1  4009  3997  0 10:48 pts/0    00:00:00 db2vend (PD Vendor Process - 1) 0
+
+db2inst1@ubuntudb2:~$ db2 activate db test
+	Activa una base de datos
+			db2inst1@ubuntudb2:~$ db2 activate db test
+			DB20000I  The ACTIVATE DATABASE command completed successfully.
+
+db2inst1@ubuntudb2:~$ ps -ef | grep -i db2
+			root      3004   975  0 09:08 ?        00:00:00 sshd: db2inst1 [priv]
+			db2inst1  3006     1  0 09:09 ?        00:00:00 /lib/systemd/systemd --user
+			db2inst1  3009  3006  0 09:09 ?        00:00:00 (sd-pam)
+			db2inst1  3040  3004  0 09:09 ?        00:00:00 sshd: db2inst1@pts/0
+			db2inst1  3041  3040  0 09:09 pts/0    00:00:00 -bash
+			root      3997     1  0 10:47 pts/0    00:00:00 db2wdog 0 [db2inst1]
+			db2inst1  3999  3997  0 10:48 pts/0    00:00:37 db2sysc 0
+			root      4000  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			root      4001  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			root      4002  3999  0 10:48 pts/0    00:00:00 db2ckpwd 0
+			db2inst1  4009  3997  0 10:48 pts/0    00:00:00 db2vend (PD Vendor Process - 1) 0
+			db2inst1  4013  3997  0 10:48 pts/0    00:00:04 db2acd 0 ,0,0,0,1,0,0,0,0000,1,0,98bebc,14,1e014,2,0,1,11fc0,0x210000000,0x210000000,1600000,28005,2,7000d
+			db2inst1  4038     1  0 11:18 pts/0    00:00:00 /home/db2inst1/sqllib/bin/db2bp 3041A1001 5 A
+			db2inst1  4199  3997  0 12:59 pts/0    00:00:00 db2fmp ( ,0,0,0,0,0,0,0,0000,1,0,98bebc,14,1e014,2,0,1,31fc0,0x210000000,0x210000000,1600000,28005,2,2e0024
+			db2inst1  4220  3041  0 13:04 pts/0    00:00:00 ps -ef
+			db2inst1  4221  3041  0 13:04 pts/0    00:00:00 -bash
+			db2inst1@ubuntudb2:~$
+
+
+db2inst1@ubuntudb2:~$ db2pd -edus
+	muestra los procesos a detalle de la base de datos
+
+			Database Member 1001 -- Active -- Up 0 days 02:17:41 -- Date 2018-04-16-13.05.41.493532
+
+			List of all EDUs for database member 0
+
+			db2sysc PID: 3999
+			db2wdog PID: 3997
+			db2acd  PID: 4013
+
+			EDU ID    TID                  Kernel TID           EDU Name                               USR (s)         SYS (s)
+			========================================================================================================================================
+			69        140317844039424      4219                 db2evmgi (DB2DETAILDEADLOCK) 0         0.000000     0.000000
+			68        140317865010944      4218                 db2pcsd (TEST) 0                       0.000000     0.040000
+			67        140317869205248      4217                 db2fw1 (TEST) 0                        0.000000     0.000000
+			66        140317860816640      4216                 db2fw0 (TEST) 0                        0.000000     0.000000
+			65        140317839845120      4215                 db2lused (TEST) 0                      0.040000     0.000000
+			64        140317856622336      4214                 db2wlmd (TEST) 0                       0.000000     0.000000
+			63        140317852428032      4213                 db2taskd (TEST) 0                      0.030000     0.000000
+			62        140317890176768      4212                 db2pfchr (TEST) 0                      0.000000     0.000000
+			61        140317877593856      4211                 db2pfchr (TEST) 0                      0.000000     0.000000
+			60        140317873399552      4210                 db2pfchr (TEST) 0                      0.000000     0.000000
+			59        140317885982464      4209                 db2pclnr (TEST) 0                      0.000000     0.000000
+			58        140317881788160      4208                 db2pclnr (TEST) 0                      0.000000     0.000000
+			57        140317894371072      4207                 db2lfr.0 (TEST) 0                      0.000000     0.000000
+			56        140317906953984      4206                 db2loggw (TEST) 0                      0.000000     0.000000
+			55        140317911148288      4205                 db2loggr (TEST) 0                      0.000000     0.000000
+			54        140317898565376      4204                 db2dlock (TEST) 0                      0.000000     0.000000
+			53        140317835650816      4201                 db2stmm (TEST) 0                       0.020000     0.020000
+			26        140317902759680      4171                 db2agent (idle) 0                     24.340000     2.200000
+			18        140317915342592      4019                 db2agent (instance) 0                  0.690000     0.740000
+			17        140317919536896      4011                 db2resync 0                            0.000000     0.000000
+			16        140317923731200      4010                 db2ipccm 0                             0.010000     0.000000
+			15        140317927925504      4008                 db2wlmtm 0                             0.620000     0.770000
+			14        140317932119808      4007                 db2wlmt 0                              0.320000     0.180000
+			13        140317936314112      4006                 db2licc 0                              0.000000     0.000000
+			12        140317940508416      4005                 db2thcln 0                             0.000000     0.000000
+			11        140317944702720      4004                 db2alarm 0                             2.580000     1.560000
+			1         140317684655872      4003                 db2sysc 0                              0.720000     0.290000
+			db2inst1@ubuntudb2:~$
+
+
+db2inst1@ubuntudb2:~$ db2 connect to test
+	para conectarse a una base de datos
+
+			db2inst1@ubuntudb2:~$ db2 connect to test
+
+			   Database Connection Information
+
+			 Database server        = DB2/LINUXX8664 10.1.3
+			 SQL authorization ID   = DB2INST1
+			 Local database alias   = TEST
+
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ db2pd -edus
+	la diferencia es que aqui 
+	db2agent (TEST) 0                     
+	db2agent (instance) 0
+	y fuera de  conectarse a la base:
+	db2agent (idle) 0
+	db2agent (instance) 0 
+
+			Database Member 1001 -- Active -- Up 0 days 02:20:32 -- Date 2018-04-16-13.08.32.861933
+
+			List of all EDUs for database member 0
+
+			db2sysc PID: 3999
+			db2wdog PID: 3997
+			db2acd  PID: 4013
+
+			EDU ID    TID                  Kernel TID           EDU Name                               USR (s)         SYS (s)
+			========================================================================================================================================
+			71        140317831456512      4237                 db2agntdp (TEST    ) 0                 0.000000     0.000000
+			70        140317848233728      4236                 db2agntdp (TEST    ) 0                 0.230000     0.060000
+			69        140317844039424      4219                 db2evmgi (DB2DETAILDEADLOCK) 0         0.000000     0.000000
+			68        140317865010944      4218                 db2pcsd (TEST) 0                       0.040000     0.040000
+			67        140317869205248      4217                 db2fw1 (TEST) 0                        0.000000     0.000000
+			66        140317860816640      4216                 db2fw0 (TEST) 0                        0.000000     0.000000
+			65        140317839845120      4215                 db2lused (TEST) 0                      0.080000     0.000000
+			64        140317856622336      4214                 db2wlmd (TEST) 0                       0.000000     0.000000
+			63        140317852428032      4213                 db2taskd (TEST) 0                      0.080000     0.000000
+			62        140317890176768      4212                 db2pfchr (TEST) 0                      0.000000     0.000000
+			61        140317877593856      4211                 db2pfchr (TEST) 0                      0.000000     0.000000
+			60        140317873399552      4210                 db2pfchr (TEST) 0                      0.000000     0.000000
+			59        140317885982464      4209                 db2pclnr (TEST) 0                      0.000000     0.000000
+			58        140317881788160      4208                 db2pclnr (TEST) 0                      0.000000     0.000000
+			57        140317894371072      4207                 db2lfr.0 (TEST) 0                      0.000000     0.000000
+			56        140317906953984      4206                 db2loggw (TEST) 0                      0.040000     0.010000
+			55        140317911148288      4205                 db2loggr (TEST) 0                      0.000000     0.010000
+			54        140317898565376      4204                 db2dlock (TEST) 0                      0.000000     0.000000
+			53        140317835650816      4201                 db2stmm (TEST) 0                       0.050000     0.070000
+			26        140317902759680      4171                 db2agent (TEST) 0                     24.340000     2.200000
+			18        140317915342592      4019                 db2agent (instance) 0                  0.690000     0.740000
+			17        140317919536896      4011                 db2resync 0                            0.000000     0.000000
+			16        140317923731200      4010                 db2ipccm 0                             0.010000     0.000000
+			15        140317927925504      4008                 db2wlmtm 0                             0.630000     0.780000
+			14        140317932119808      4007                 db2wlmt 0                              0.320000     0.190000
+			13        140317936314112      4006                 db2licc 0                              0.000000     0.000000
+			12        140317940508416      4005                 db2thcln 0                             0.000000     0.000000
+			11        140317944702720      4004                 db2alarm 0                             2.580000     1.630000
+			1         140317684655872      4003                 db2sysc 0                              0.730000     0.290000
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ db2 connect reset
+	comando par resetear la coneccion de la base de datos
+
+			db2inst1@ubuntudb2:~$ db2 connect reset
+			DB20000I  The SQL command completed successfully.
+
+db2inst1@ubuntudb2:~$ db2 deactivate db test
+	comando para desactivar una base de datos
+
+			db2inst1@ubuntudb2:~$ db2 deactivate db test
+			DB20000I  The DEACTIVATE DATABASE command completed successfully.
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ db2pd -edus
+	verificamos que la base de datos este detenida y desactivada
+
+			db2inst1@ubuntudb2:~$ db2pd -edus
+			Database Member 1001 -- Active -- Up 0 days 03:42:07 -- Date 2018-04-16-14.30.07.078010
+
+			List of all EDUs for database member 0
+
+			db2sysc PID: 3999
+			db2wdog PID: 3997
+			db2acd  PID: 4013
+
+			EDU ID    TID                  Kernel TID           EDU Name                               USR (s)         SYS (s)
+			========================================================================================================================================
+			71        140317831456512      4237                 db2agent (idle) 0                      0.030000     0.010000
+			70        140317848233728      4236                 db2agent (idle) 0                      0.380000     0.110000
+			26        140317902759680      4171                 db2agent (idle) 0                     24.550000     2.280000
+			18        140317915342592      4019                 db2agent (instance) 0                  0.790000     0.900000
+			17        140317919536896      4011                 db2resync 0                            0.000000     0.000000
+			16        140317923731200      4010                 db2ipccm 0                             0.020000     0.040000
+			15        140317927925504      4008                 db2wlmtm 0                             1.350000     0.780000
+			14        140317932119808      4007                 db2wlmt 0                              0.630000     0.270000
+			13        140317936314112      4006                 db2licc 0                              0.000000     0.000000
+			12        140317940508416      4005                 db2thcln 0                             0.000000     0.010000
+			11        140317944702720      4004                 db2alarm 0                             4.840000     3.100000
+			1         140317684655872      4003                 db2sysc 0                              1.200000     0.440000
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ db2stop
+	detenemos el motor de base de datos db2
+
+			db2inst1@ubuntudb2:~$ db2stop
+			04/16/2018 14:31:19     0   0   SQL1064N  DB2STOP processing was successful.
+			SQL1064N  DB2STOP processing was successful.
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ ps -ef | grep -i db2
+	verificamos que los servicios esten abajo
+
+			db2inst1@ubuntudb2:~$ ps -ef | grep -i db2
+			root      3004   975  0 09:08 ?        00:00:00 sshd: db2inst1 [priv]
+			db2inst1  3006     1  0 09:09 ?        00:00:00 /lib/systemd/systemd --user
+			db2inst1  3009  3006  0 09:09 ?        00:00:00 (sd-pam)
+			db2inst1  3040  3004  0 09:09 ?        00:00:01 sshd: db2inst1@pts/0
+			db2inst1  3041  3040  0 09:09 pts/0    00:00:01 -bash
+			db2inst1  4038     1  0 11:18 pts/0    00:00:00 /home/db2inst1/sqllib/bin/db2bp 3041A1001 5 A
+			db2inst1  4476  3041  0 14:32 pts/0    00:00:00 ps -ef
+			db2inst1  4477  3041  0 14:32 pts/0    00:00:00 grep --color=auto -i db2
+			db2inst1@ubuntudb2:~$
+
+db2inst1@ubuntudb2:~$ exit = salimos de la sesion
+
+
+Esta sesion fue como iniciar una base de datos, iniciar ina instancia, checar los procesos
